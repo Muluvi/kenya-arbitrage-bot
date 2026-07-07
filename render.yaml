@@ -1,0 +1,35 @@
+services:
+  - type: cron
+    name: kenya-scraper-cron
+    env: python
+    schedule: "0 */4 * * *"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python scraper_cron.py
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: EBAY_CLIENT_ID
+        sync: false
+      - key: EBAY_CLIENT_SECRET
+        sync: false
+      - key: EXCHANGE_API_KEY
+        sync: false
+
+  - type: web
+    name: kenya-telegram-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python telegram_bot.py
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: EBAY_CLIENT_ID
+        sync: false
+      - key: EBAY_CLIENT_SECRET
+        sync: false
+      - key: EXCHANGE_API_KEY
+        sync: false
